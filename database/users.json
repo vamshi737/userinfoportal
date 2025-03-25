@@ -1,0 +1,18 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "Vamshi Panjala",
+        "age": 25,
+        "email": "vamshi@gmail.com",
+        "password": "Vamshi@123",
+        "phone": "+91-9876543210",
+        "accountType": "Premium",
+        "address": "Hyderabad, Telangana, India",
+        "memberSince": "2023-07-15",
+        "lastLogin": "2025-03-24 10:45 AM",
+        "status": "Active"
+      }
+    ]
+  }
+  
