@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Dashboard</title>
+  <title>Dashboard | UserInfo Portal</title>
   <style>
     body { font-family: Arial; padding: 30px; background: #f0f0f0; }
     .user-info { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
@@ -49,6 +49,8 @@
       localStorage.removeItem("userInfo");
       window.location.href = "index.html";
     }
+    // Prevent going back to dashboard after logout
+window.history.forward();
   </script>
 </body>
 </html>
