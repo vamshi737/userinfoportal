@@ -45,32 +45,63 @@
       <button type="submit">Login</button>
     </form>
   </div>
-</body>
-</html>
-<script>
-  document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
 
-    const email = document.querySelector("input[type='email']").value;
-    const password = document.querySelector("input[type='password']").value;
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-    const response = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email, password })
+      const email = document.querySelector("input[type='email']").value.trim();
+      const password = document.querySelector("input[type='password']").value.trim();
+
+      // ✅ Basic Validation
+      if (!email || !password) {
+        alert("Please enter both Email and Password.");
+        return;
+      }
+
+      if (!email.includes("@") || email.length < 5) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (password.length < 4) {
+        alert("Password must be at least 4 characters.");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+          localStorage.setItem("userInfo", JSON.stringify(result.user));
+          window.location.href = "dashboard.html";
+        } else {
+          // 🔴 Instead of alert, show message on screen
+          const msg = document.createElement("p");
+          msg.textContent = "❌ Invalid email or password.";
+          msg.style.color = "red";
+          msg.style.textAlign = "center";
+          document.querySelector(".login-container").appendChild(msg);
+
+          // Optional: remove after 3 seconds
+          setTimeout(() => msg.remove(), 3000);
+        }
+      } catch (err) {
+        console.error("Login failed:", err);
+        alert("Something went wrong. Please try again later.");
+      }
     });
 
-    const result = await response.json();
-
-    if (result.status === "success") {
-      // Save user data to localStorage
-      localStorage.setItem("userInfo", JSON.stringify(result.user));
-      window.location.href = "dashboard.html";
-    } else {
-      alert("Invalid credentials. Please try again.");
-    }
-  });
-</script>
-
+    // Optional: Autofocus email field on load
+    window.onload = function () {
+      document.querySelector("input[type='email']").focus();
+    };
+  </script>
+</body>
+</html>
