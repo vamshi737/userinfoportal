@@ -10,6 +10,10 @@
   </style>
 </head>
 <body>
+  <!-- ✅ Logout Button -->
+  <button onclick="logoutUser()" style="margin-top: 20px; padding: 10px; background-color: #ff4d4d; color: white; border: none; border-radius: 5px;">Logout</button>
+
+  <!-- ✅ User Info Section -->
   <div class="user-info" id="userData">
     <h2>Welcome, <span id="userName"></span> 👋</h2>
     <p><strong>Email:</strong> <span id="userEmail"></span></p>
@@ -20,5 +24,33 @@
     <p><strong>Last Login:</strong> <span id="userLastLogin"></span></p>
     <p><strong>Status:</strong> <span id="userStatus"></span></p>
   </div>
+
+  <!-- ✅ JavaScript for Auth & Logout -->
+  <script>
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (user) {
+      document.getElementById("userName").textContent = user.name;
+      document.getElementById("userEmail").textContent = user.email;
+      document.getElementById("userPhone").textContent = user.phone;
+      document.getElementById("userType").textContent = user.accountType;
+      document.getElementById("userAddress").textContent = user.address;
+      document.getElementById("userSince").textContent = user.memberSince;
+      document.getElementById("userLastLogin").textContent = user.lastLogin;
+      document.getElementById("userStatus").textContent = user.status;
+    } else {
+      document.body.innerHTML = "<h2 style='text-align:center;'>No user info found. Please login again.</h2>";
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000);
+    }
+
+    function logoutUser() {
+      localStorage.removeItem("userInfo");
+      window.location.href = "index.html";
+    }
+  </script>
 </body>
 </html>
+
+  

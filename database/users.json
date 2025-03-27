@@ -1,18 +1,39 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "name": "Vamshi Panjala",
-        "age": 25,
-        "email": "vamshi@gmail.com",
-        "password": "Vamshi@123",
-        "phone": "+91-9876543210",
-        "accountType": "Premium",
-        "address": "Hyderabad, Telangana, India",
-        "memberSince": "2023-07-15",
-        "lastLogin": "2025-03-24 10:45 AM",
-        "status": "Active"
-      }
-    ]
-  }
+  "users": [
+    {
+      "name": "Vamshi Panjala",
+      "email": "vamshi@gmail.com",
+      "password": "Vamshi@123",
+      "phone": "+91-9876543210",
+      "accountType": "Premium",
+      "address": "Hyderabad, Telangana, India",
+      "memberSince": "2023-07-15",
+      "lastLogin": "2025-03-24 10:45 AM",
+      "status": "Active"
+    },
+    {
+      "name": "Rohit Kumar",
+      "email": "rohitk@gmail.com",
+      "password": "Rohit@456",
+      "phone": "+91-9999999999",
+      "accountType": "Standard",
+      "address": "Bangalore, Karnataka, India",
+      "memberSince": "2024-01-10",
+      "lastLogin": "2025-03-25 9:00 AM",
+      "status": "Active"
+    },
+    {
+      "name": "Anjali Mehta",
+      "email": "anjali@gmail.com",
+      "password": "Anjali@789",
+      "phone": "+91-8888888888",
+      "accountType": "Premium",
+      "address": "Mumbai, Maharashtra, India",
+      "memberSince": "2022-12-01",
+      "lastLogin": "2025-03-20 2:15 PM",
+      "status": "Active"
+    }
+  ]
+}
+
   
