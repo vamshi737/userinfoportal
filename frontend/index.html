@@ -16,6 +16,7 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      width: 300px;
     }
     input[type="email"],
     input[type="password"] {
@@ -33,6 +34,12 @@
       color: white;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
+    }
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -40,67 +47,77 @@
   <div class="login-container">
     <h2>User Login</h2>
     <form id="loginForm">
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
       <button type="submit">Login</button>
     </form>
+    <div class="message" id="loginMessage"></div>
   </div>
 
   <script>
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      const email = document.querySelector("input[type='email']").value.trim();
-      const password = document.querySelector("input[type='password']").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const messageBox = document.getElementById("loginMessage");
+
+      console.log("🔍 Trying to login with:", email, password);
+
+      // Clear previous message
+      messageBox.textContent = '';
+      messageBox.style.color = '';
 
       // ✅ Basic Validation
       if (!email || !password) {
-        alert("Please enter both Email and Password.");
+        messageBox.textContent = "Please enter both Email and Password.";
+        messageBox.style.color = "red";
         return;
       }
 
       if (!email.includes("@") || email.length < 5) {
-        alert("Please enter a valid email address.");
+        messageBox.textContent = "Please enter a valid email address.";
+        messageBox.style.color = "red";
         return;
       }
 
       if (password.length < 4) {
-        alert("Password must be at least 4 characters.");
+        messageBox.textContent = "Password must be at least 4 characters.";
+        messageBox.style.color = "red";
         return;
       }
 
       try {
-        const response = await fetch("http://localhost:3000/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({ email, password }),
         });
 
         const result = await response.json();
+        console.log("✅ Server responded with:", result);
 
         if (result.status === "success") {
+          alert("✅ Login successful!");
           localStorage.setItem("userInfo", JSON.stringify(result.user));
-          window.location.href = "dashboard.html";
+          window.location.href = "dashboard.html"; // You can remove this if not needed
         } else {
-          // 🔴 Instead of alert, show message on screen
-          const msg = document.createElement("p");
-          msg.textContent = "❌ Invalid email or password.";
-          msg.style.color = "red";
-          msg.style.textAlign = "center";
-          document.querySelector(".login-container").appendChild(msg);
-
-          // Optional: remove after 3 seconds
-          setTimeout(() => msg.remove(), 3000);
+          messageBox.textContent = "❌ " + result.message;
+          messageBox.style.color = "red";
         }
+
       } catch (err) {
-        console.error("Login failed:", err);
-        alert("Something went wrong. Please try again later.");
+        console.error("❌ Login failed:", err);
+        messageBox.textContent = "Server error. Please try again later.";
+        messageBox.style.color = "red";
       }
     });
 
-    // Optional: Autofocus email field on load
+    // ✅ Autofocus on email field when page loads
     window.onload = function () {
-      document.querySelector("input[type='email']").focus();
+      document.getElementById("email").focus();
     };
   </script>
 </body>
