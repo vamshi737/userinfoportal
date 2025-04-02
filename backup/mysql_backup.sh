@@ -2,11 +2,11 @@
 
 # MySQL database credentials
 USER="root"
-PASSWORD="Vamsi321"  # Use your MySQL root password
+PASSWORD="Vamsi321"
 DATABASE="user_info"
 
-# Backup directory (change as needed)
-BACKUP_DIR="/path/to/your/backup/folder"
+# Backup directory
+BACKUP_DIR="/c/UserInfoPortal/backup"
 
 # Date format for the backup file
 DATE=$(date +"%Y-%m-%d_%H-%M-%S")
